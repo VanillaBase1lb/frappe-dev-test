@@ -1,7 +1,12 @@
+-- CREATE DATABASE IF NOT EXISTS `frappe`;
+-- CREATE USER 'frappeuser'@'localhost' IDENTIFIED BY 'password';
+-- GRANT ALL PRIVILEGES ON `frappe`.* TO 'frappeuser'@'localhost';
+
 USE frappe;
 
 CREATE TABLE books (
     bookid INTEGER PRIMARY KEY,
+    title VARCHAR(255),
     authors VARCHAR(255),
     average_rating INTEGER,
     isbn CHAR(10),
@@ -15,14 +20,17 @@ CREATE TABLE books (
 );
 
 CREATE TABLE members (
-    memberid INTEGER PRIMARY KEY,
-    name_full VARCHAR(255),
+    username VARCHAR(16) PRIMARY KEY,
+    fullname VARCHAR(255),
     debt INTEGER
 );
 
 CREATE TABLE transactions (
-    transactionid SERIAL,
+    bookid INTEGER,
+    username VARCHAR(16),
+    rent INTEGER,
+
     FOREIGN KEY(bookid) REFERENCES books(bookid),
-    FOREIGN KEY(memberid) REFERENCES members(memberid),
-    rent INTEGER
+    FOREIGN KEY(username) REFERENCES members(username),
+    UNIQUE(bookid, username)
 );
