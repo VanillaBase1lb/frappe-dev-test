@@ -16,6 +16,7 @@ def books():
         params = {"title": title, "authors": authors, "isbn": isbn, "page": page}
         raw_response = requests.get(url=url, params=params, timeout=10)
         response = raw_response.json()
+        response = response["message"]
 
     elif request.method == "POST":
         body = request.get_json()

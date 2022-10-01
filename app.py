@@ -13,3 +13,9 @@ app.add_url_rule(
 app.add_url_rule(
     "/api/transactions/return", methods=["POST"], view_func=transactions.return_book
 )
+
+
+@app.route("/")
+def index():
+    """Index page"""
+    return flask.render_template("index.html")
