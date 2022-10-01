@@ -21,8 +21,7 @@ CREATE TABLE books (
 
 CREATE TABLE members (
     username VARCHAR(16) PRIMARY KEY,
-    fullname VARCHAR(255),
-    debt INTEGER
+    fullname VARCHAR(255)
 );
 
 CREATE TABLE transactions (

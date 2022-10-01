@@ -16,7 +16,6 @@ def issue_book():
     conn = database.pool.get_connection()
     cursor = conn.cursor()
     # check if username exists
-    # TODO: check for bookid
     query = """SELECT COUNT(*) FROM members WHERE username=%s"""
     record = (username,)
     cursor.execute(query, record)
@@ -26,7 +25,14 @@ def issue_book():
         query = """INSERT INTO members (username, fullname) VALUES (%s, %s)"""
         record = (username, fullname)
         cursor.execute(query, record)
-        conn.commit()
+    else:
+        # check for outstanding dues
+        query = """SELECT SUM(rent) FROM transactions WHERE username=%s"""
+        record = (username,)
+        cursor.execute(query, record)
+        result = cursor.fetchone()
+        if result[0] > 500:
+            return "outstanding dues"
 
     query = """INSERT INTO transactions (username, bookid, rent) VALUES (%s, %s, %s)"""
     record = (username, bookid, rent)
