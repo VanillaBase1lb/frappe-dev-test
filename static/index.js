@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('find_book').addEventListener('click', getBooksFromFrappe);
 	document.getElementById('add_book').addEventListener('click', addBooksToLibrary);
+	document.getElementById('select_all').addEventListener('click', function() {
+		const state = document.getElementById('select_all').checked;
+		for (let i = 0; i < document.books.length; i++) {
+			document.getElementById(`book_${i}`).checked = state;
+		}
+	});
 });
 
 function getBooksFromFrappe() {
