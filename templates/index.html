@@ -58,65 +58,59 @@
 			<button id="find_book" class="btn btn-primary">Find Book</button>
 		</form>
 	</div>
-	<div class="mt-5 table-responsive">
-		<div class="row">
-			<div class="col-12">
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th scope="col">BookId</th>
-							<th scope="col">Title</th>
-							<th scope="col">Authors</th>
-							<th scope="col">Average Rating</th>
-							<th scope="col">ISBN</th>
-							<th scope="col">ISBN13</th>
-							<th scope="col">Language</th>
-							<th scope="col">Page Count</th>
-							<th scope="col">Ratings Count</th>
-							<th scope="col">Text Review Count</th>
-							<th scope="col">Publication Date</th>
-							<th scope="col">Publisher</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row">1</th>
-							<td>Bootstrap 4 CDN and Starter Template</td>
-							<td>Cristina</td>
-							<td>2.846</td>
-							<td>
-								<button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-								<button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-								<button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">2</th>
-							<td>Bootstrap Grid 4 Tutorial and Examples</td>
-							<td>Cristina</td>
-							<td>3.417</td>
-							<td>
-								<button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-								<button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-								<button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row">3</th>
-							<td>Bootstrap Flexbox Tutorial and Examples</td>
-							<td>Cristina</td>
-							<td>1.234</td>
-							<td>
-								<button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button>
-								<button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-								<button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+
+	<div class="container mt-5">
+		<h1>Bootstrap Table</h1>
+		<p> Mémo pour les options du Bootstrap Table : <a
+				href="http://bootstrap-table.wenzhixin.net.cn/documentation/">Bootstrap Table Documentation</a></p>
+		<p>Eléments de Bootstrap Table utilisés : <a href="http://jsfiddle.net/wenyi/e3nk137y/3178/">Data Checkbox</a>,
+			pour cocher les éléments à sélectionner, <a
+				href="https://github.com/wenzhixin/bootstrap-table-examples/blob/master/extensions/filter-control.html">extension
+				Filter control</a>, pour les filtres via les colonnes, <a
+				href="https://github.com/kayalshri/tableExport.jquery.plugin">extension Data export</a> pour exporter
+		</p>
+		<table class="table table-bordered" id="booktable">
+			<thead>
+				<tr>
+					<!-- <th>Select</th> -->
+					<th class="bs-checkbox "><input type="checkbox"></th>
+					<th>BookId</th>
+					<th>Title</th>
+					<th>Authors</th>
+					<th>Average Rating</th>
+					<th>ISBN</th>
+					<th>ISBN13</th>
+					<th>Language</th>
+					<th>Page Count</th>
+					<th>Ratings Count</th>
+					<th>Text Review Count</th>
+					<th>Publication Date</th>
+					<th>Publisher</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- <tr> -->
+				<!-- 	<td class="bs-checkbox "><input type="checkbox"></td> -->
+				<!-- 	<td>Valérie</td> -->
+				<!-- 	<td>01/09/2015</td> -->
+				<!-- 	<td>Français</td> -->
+				<!-- 	<td>12/20</td> -->
+				<!-- </tr> -->
+				<!-- <tr> -->
+				<!-- 	<td class="bs-checkbox "><input type="checkbox"></td> -->
+				<!-- 	<td>Eric</td> -->
+				<!-- 	<td>05/09/2015</td> -->
+				<!-- 	<td>Philosophie</td> -->
+				<!-- 	<td>8/20</td> -->
+				<!-- </tr> -->
+			</tbody>
+		</table>
+		<!-- <button id="find_book" class="btn btn-primary">Find Book</button> -->
 	</div>
+
+
+
+
 </body>
 
 </html>
