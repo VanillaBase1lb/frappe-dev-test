@@ -70,11 +70,7 @@ function addBooksToLibrary() {
 		if (book.checked) {
 			console.log(document.books[i])
 			fetch('/api/books', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ "isbn": book.value }) })
-				.then(res => {
-					if (res.status == 200) {
-						alert("Book(s) added to library");
-					}
-				});
+				.then(res => { console.log(res) });
 		}
 	}
 }
