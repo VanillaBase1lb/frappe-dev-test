@@ -69,16 +69,3 @@ def return_book():
     conn.commit()
     conn.close()
     return "Success"
-
-
-def stock():
-    """Return all books in stock"""
-    conn = database.pool.get_connection()
-    cursor = conn.cursor()
-    query = """SELECT bookid, title, authors, average_rating, publisher FROM books"""
-    cursor.execute(query)
-    result = cursor.fetchall()
-    # TODO: convert result to list of dicts, currently returns list of tuples
-    # print(result)
-    conn.close()
-    return jsonify(result)
