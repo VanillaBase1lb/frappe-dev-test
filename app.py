@@ -15,7 +15,13 @@ app.add_url_rule(
 )
 
 
-@app.route("/")
-def index():
+@app.route("/<path:filename>")
+def index(filename):
     """Index page"""
-    return flask.render_template("index.html")
+    return flask.send_from_directory("templates", filename)
+
+
+# @app.route("/issue.html")
+# def issue():
+#     """Index page"""
+#     return flask.render_template("issue.html")

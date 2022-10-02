@@ -1,12 +1,19 @@
-document.addEventListener('DOMContentLoaded', function() {
-	document.getElementById('find_book').addEventListener('click', getBooksFromFrappe);
-	document.getElementById('add_book').addEventListener('click', addBooksToLibrary);
-	document.getElementById('select_all').addEventListener('click', function() {
-		const state = document.getElementById('select_all').checked;
-		for (let i = 0; i < document.books.length; i++) {
-			document.getElementById(`book_${i}`).checked = state;
-		}
-	});
+document.pagecount = 1;
+document.getElementById('find_book').addEventListener('click', getBooksFromFrappe);
+document.getElementById('add_book').addEventListener('click', addBooksToLibrary);
+document.getElementById('select_all').addEventListener('click', function() {
+	const state = document.getElementById('select_all').checked;
+	for (let i = 0; i < document.books.length; i++) {
+		document.getElementById(`book_${i}`).checked = state;
+	}
+});
+document.getElementById('next_page').addEventListener('click', function() {
+	document.pagecount += 1;
+	getBooksFromFrappe();
+});
+document.getElementById('prev_page').addEventListener('click', function() {
+	document.pagecount -= 1;
+	getBooksFromFrappe();
 });
 
 function getBooksFromFrappe() {
@@ -19,14 +26,14 @@ function getBooksFromFrappe() {
 		authors: authors,
 		isbn: isbn,
 		publisher: publisher,
+		page: document.pagecount,
 	};
 	// remove empty params
-	Object.keys(params).forEach(key => params[key] === '' && delete params[key]);
+	Object.keys(params).forEach(key => (params[key] === '' || params[key] === undefined) && delete params[key]);
 	console.log(params);
 	const options = {
 		method: 'GET',
 	};
-	// var books;
 	fetch('/api/books?' + new URLSearchParams(params), options).then(res => res.json()).then(data => {
 		console.log(data);
 		document.books = data;
@@ -53,6 +60,7 @@ function getBooksFromFrappe() {
 			row.insertCell().innerHTML = document.books[i]["publication_date"];
 			row.insertCell().innerHTML = document.books[i]["publisher"];
 		}
+		changePageButtonState();
 	});
 }
 
@@ -61,7 +69,28 @@ function addBooksToLibrary() {
 		const book = document.getElementById(`book_${i}`)
 		if (book.checked) {
 			console.log(document.books[i])
-			fetch('/api/books', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ "isbn": book.value }) });
+			fetch('/api/books', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ "isbn": book.value }) })
+				.then(res => {
+					if (res.status == 200) {
+						alert("Book(s) added to library");
+					}
+				});
 		}
+	}
+}
+
+function changePageButtonState() {
+	console.log("change")
+	if (document.pagecount <= 1) {
+		document.getElementById('prev_page').classList.add('disabled');
+	}
+	else {
+		document.getElementById('prev_page').classList.remove('disabled');
+	}
+	if (document.books.length < 20) {
+		document.getElementById('next_page').classList.add('disabled');
+	}
+	else {
+		document.getElementById('next_page').classList.remove('disabled');
 	}
 }

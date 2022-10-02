@@ -12,8 +12,15 @@ def books():
         title = request.args.get("title")
         authors = request.args.get("authors")
         isbn = request.args.get("isbn")
+        publisher = request.args.get("publisher")
         page = request.args.get("page")
-        params = {"title": title, "authors": authors, "isbn": isbn, "page": page}
+        params = {
+            "title": title,
+            "authors": authors,
+            "isbn": isbn,
+            "publisher": publisher,
+            "page": page,
+        }
         raw_response = requests.get(url=url, params=params, timeout=10)
         response = raw_response.json()
         response = response["message"]
