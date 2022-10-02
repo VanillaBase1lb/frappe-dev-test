@@ -10,7 +10,7 @@ DB_HOST = environ.get("APP_DB_HOST")
 
 pool = pooling.MySQLConnectionPool(
     pool_name="dbpool",
-    pool_size=8,
+    pool_size=2,
     pool_reset_session=True,
     host=DB_HOST,
     database=DB,

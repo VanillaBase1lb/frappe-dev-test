@@ -1,6 +1,6 @@
 """APIs for member-book interactions"""
 
-from flask import request
+from flask import jsonify, request
 from . import database
 
 
@@ -32,16 +32,22 @@ def issue_book():
         cursor.execute(query, record)
         result = cursor.fetchone()
         if result[0] > 500:
-            return "outstanding dues"
+            conn.commit()
+            conn.close()
+            return "Outstanding dues more than 500!"
 
     query = """INSERT INTO transactions (username, bookid, rent) VALUES (%s, %s, %s)"""
     record = (username, bookid, rent)
-    cursor.execute(query, record)
+    try:
+        cursor.execute(query, record)
+    except Exception as ex:
+        print(ex)
+        conn.rollback()
+        conn.close()
+        return "Book already issued!"
     conn.commit()
     conn.close()
-    print("done")
-
-    return "done"
+    return "Success"
 
 
 def return_book():
@@ -62,6 +68,17 @@ def return_book():
     )
     conn.commit()
     conn.close()
-    print("deleted")
+    return "Success"
 
-    return "deleted"
+
+def stock():
+    """Return all books in stock"""
+    conn = database.pool.get_connection()
+    cursor = conn.cursor()
+    query = """SELECT bookid, title, authors, average_rating, publisher FROM books"""
+    cursor.execute(query)
+    result = cursor.fetchall()
+    # TODO: convert result to list of dicts, currently returns list of tuples
+    # print(result)
+    conn.close()
+    return jsonify(result)
