@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 	document.getElementById('find_book').addEventListener('click', getBooksFromFrappe);
+	document.getElementById('add_book').addEventListener('click', addBooksToLibrary);
 });
 
 function getBooksFromFrappe() {
@@ -19,31 +20,42 @@ function getBooksFromFrappe() {
 	const options = {
 		method: 'GET',
 	};
-	var books;
+	// var books;
 	fetch('/api/books?' + new URLSearchParams(params), options).then(res => res.json()).then(data => {
 		console.log(data);
-		books = data;
+		document.books = data;
 		// fill table with books
 		let table = document.getElementById('booktable');
 		table.getElementsByTagName('tbody')[0].innerHTML = '';
-		for (let i = 0; i < books.length; i++) {
-			console.log(books[i]["title"]);
+		for (let i = 0; i < document.books.length; i++) {
+			console.log(document.books[i]["title"]);
 			let row = table.getElementsByTagName('tbody')[0].insertRow();
 			let cell0 = row.insertCell(0);
 			cell0.className = "bs-checkbox";
-			cell0.innerHTML = '<input type="checkbox">';
-			row.insertCell().innerHTML = books[i]["bookID"];
-			row.insertCell().innerHTML = books[i]["title"];
-			row.insertCell().innerHTML = books[i]["authors"];
-			row.insertCell().innerHTML = books[i]["average_rating"];
-			row.insertCell().innerHTML = books[i]["isbn"];
-			row.insertCell().innerHTML = books[i]["isbn13"];
-			row.insertCell().innerHTML = books[i]["language_code"];
-			row.insertCell().innerHTML = books[i]["  num_pages"];
-			row.insertCell().innerHTML = books[i]["ratings_count"];
-			row.insertCell().innerHTML = books[i]["text_reviews_count"];
-			row.insertCell().innerHTML = books[i]["publication_date"];
-			row.insertCell().innerHTML = books[i]["publisher"];
+			// store isbn in checkbox value attribute
+			cell0.innerHTML = `<input type="checkbox" id="book_${i}" value="${document.books[i]["isbn"]}">`;
+			row.insertCell().innerHTML = document.books[i]["bookID"];
+			row.insertCell().innerHTML = document.books[i]["title"];
+			row.insertCell().innerHTML = document.books[i]["authors"];
+			row.insertCell().innerHTML = document.books[i]["average_rating"];
+			row.insertCell().innerHTML = document.books[i]["isbn"];
+			row.insertCell().innerHTML = document.books[i]["isbn13"];
+			row.insertCell().innerHTML = document.books[i]["language_code"];
+			row.insertCell().innerHTML = document.books[i]["  num_pages"];
+			row.insertCell().innerHTML = document.books[i]["ratings_count"];
+			row.insertCell().innerHTML = document.books[i]["text_reviews_count"];
+			row.insertCell().innerHTML = document.books[i]["publication_date"];
+			row.insertCell().innerHTML = document.books[i]["publisher"];
 		}
 	});
+}
+
+function addBooksToLibrary() {
+	for (let i = 0; i < document.books.length; i++) {
+		const book = document.getElementById(`book_${i}`)
+		if (book.checked) {
+			console.log(document.books[i])
+			fetch('/api/books', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ "isbn": book.value }) });
+		}
+	}
 }
