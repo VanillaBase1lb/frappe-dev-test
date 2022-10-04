@@ -23,3 +23,4 @@ APP_DB_HOST=localhost
 ![Add Books using Frappe API](./screenshots/add.png)
 ![Issue Books to Members with a Fee](./screenshots/issue.png)
 ![Issue Book Returns from Members](./screenshots/return.png)
+![Delete Books](./screenshots/delete.png)
