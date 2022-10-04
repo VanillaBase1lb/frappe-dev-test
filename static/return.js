@@ -26,7 +26,7 @@ function getMemberIssuedBooks() {
 }
 
 function returnBook(i) {
-	const username = document.getElementById('inputUsername').value;
+	const username = document.getElementById('returntable').getElementsByTagName('tbody')[0].getElementsByTagName('tr')[i].getElementsByTagName('td')[2].innerText;
 	const bookid = document.getElementById(`stock_${i}`).value;
 	const data = { "username": username, "bookid": bookid };
 	console.log(data);
