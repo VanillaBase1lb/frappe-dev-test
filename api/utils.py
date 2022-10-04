@@ -20,8 +20,8 @@ def member_issued_books():
     username = request.args.get("username")
     conn = database.pool.get_connection()
     cursor = conn.cursor()
-    query = """SELECT books.bookid, title, authors, average_rating, publisher FROM books JOIN transactions ON transactions.bookid=books.bookid WHERE transactions.username=%s"""
-    record = (username,)
+    query = """SELECT books.bookid, transactions.username, title, authors, average_rating, publisher, transactions.rent FROM books JOIN transactions ON transactions.bookid=books.bookid WHERE transactions.username LIKE %s"""
+    record = ("%" + username + "%",)
     cursor.execute(query, record)
     result = cursor.fetchall()
     conn.close()

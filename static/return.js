@@ -1,4 +1,5 @@
 document.getElementById('member_books').addEventListener('click', getMemberIssuedBooks);
+getMemberIssuedBooks();
 
 function getMemberIssuedBooks() {
 	const username = document.getElementById('inputUsername').value;
@@ -14,10 +15,12 @@ function getMemberIssuedBooks() {
 				cell0.getElementsByTagName('button')[0].onclick = function() { returnBook(i) };
 				// do not put in loop
 				row.insertCell().innerHTML = books[i][0]; // bookID
-				row.insertCell().innerHTML = books[i][1]; // title
-				row.insertCell().innerHTML = books[i][2]; // authors
-				row.insertCell().innerHTML = books[i][3]; // average_rating
-				row.insertCell().innerHTML = books[i][4]; // publisher
+				row.insertCell().innerHTML = books[i][1]; // username
+				row.insertCell().innerHTML = books[i][2]; // title
+				row.insertCell().innerHTML = books[i][3]; // authors
+				row.insertCell().innerHTML = books[i][4]; // average_rating
+				row.insertCell().innerHTML = books[i][5]; // publisher
+				row.insertCell().innerHTML = books[i][6]; // rent
 			}
 		});
 }
