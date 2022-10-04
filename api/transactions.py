@@ -59,13 +59,10 @@ def return_book():
 
     conn = database.pool.get_connection()
     cursor = conn.cursor()
+    # Also triggers a delete operation on the members table if no books are issued
     query = """DELETE FROM transactions WHERE username=%s AND bookid=%s"""
     record = (username, bookid)
     cursor.execute(query, record)
-    # delete member if no corresponding transactions
-    cursor.execute(
-        """DELETE FROM members WHERE username NOT IN (SELECT UNIQUE(username) FROM transactions)"""
-    )
     conn.commit()
     conn.close()
     return "Success"

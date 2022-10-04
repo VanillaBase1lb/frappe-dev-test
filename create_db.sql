@@ -33,3 +33,7 @@ CREATE TABLE transactions (
     FOREIGN KEY(username) REFERENCES members(username),
     UNIQUE(bookid, username)
 );
+
+CREATE TRIGGER delete_members_after_transactions AFTER DELETE ON transactions
+FOR EACH ROW DELETE FROM members WHERE username NOT IN
+(SELECT UNIQUE(username) FROM transactions);

@@ -18,7 +18,6 @@ pool = pooling.MySQLConnectionPool(
     password=DB_PASSWORD,
 )
 
-# TODO: Add sql hook to delete from members table
 # conn = pool.get_connection()
 # cursor = conn.cursor()
 # # cursor.execute(f"USE {DB}")
