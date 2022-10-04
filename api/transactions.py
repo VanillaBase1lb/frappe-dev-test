@@ -69,3 +69,27 @@ def return_book():
     conn.commit()
     conn.close()
     return "Success"
+
+
+def delete_book():
+    """Delete book from database"""
+    body = request.get_json()
+    bookid = body["bookid"]
+
+    conn = database.pool.get_connection()
+    cursor = conn.cursor()
+    query = """SELECT COUNT(*) FROM transactions WHERE bookid=%s"""
+    record = (bookid,)
+    cursor.execute(query, record)
+    result = cursor.fetchone()
+    if result[0] > 0:
+        conn.commit()
+        conn.close()
+        return "Book already issued to a member. Delete after books have been returned!"
+
+    query = """DELETE FROM books WHERE bookid=%s"""
+    record = (bookid,)
+    cursor.execute(query, record)
+    conn.commit()
+    conn.close()
+    return "Success"

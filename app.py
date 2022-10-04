@@ -10,6 +10,9 @@ app = flask.Flask(__name__)
 app.add_url_rule("/api/books", methods=["GET", "POST"], view_func=books.books)
 app.add_url_rule("/api/transactions/stock", methods=["GET"], view_func=utils.stock)
 app.add_url_rule(
+    "/api/transactions/delete", methods=["POST"], view_func=transactions.delete_book
+)
+app.add_url_rule(
     "/api/transactions/memberissued",
     methods=["GET"],
     view_func=utils.member_issued_books,
@@ -20,7 +23,6 @@ app.add_url_rule(
 app.add_url_rule(
     "/api/transactions/return", methods=["POST"], view_func=transactions.return_book
 )
-# TODO: add delete book feature
 
 
 @app.route("/<path:filename>")
